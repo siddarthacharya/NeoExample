@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeoExample Homecare Services</title>
+
+    <style>
+
+        /* ---------------------- GENERAL STYLES ---------------------- */
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #ffffff;
+            scroll-behavior: smooth;
+        }
+
+        h2 {
+            text-align: center;
+            color: #003b6d;
+            margin-top: 50px;
+            font-size: 32px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* ---------------------- NAVIGATION ---------------------- */
+        nav {
+            width: 100%;
+            background: #0a72c4;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 12px 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-left: 25px;
+            padding-right: 25px;
+        }
+
+        nav .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #bde2ff;
+        }
+
+        /* Mobile Menu */
+        .menu-icon {
+            display: none;
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 60px;
+                right: 0;
+                background: #0a72c4;
+                width: 100%;
+                flex-direction: column;
+                text-align: center;
+                padding: 20px 0;
+            }
+
+            nav ul.show {
+                display: flex;
+            }
+
+            .menu-icon {
+                display: block;
+            }
+        }
+
+        /* ---------------------- HERO SLIDER ---------------------- */
+        .slider {
+            width: 100%;
+            height: 90vh;
+            position: relative;
+            overflow: hidden;
+            margin-top: 60px;
+        }
+
+        .slides {
+            display: flex;
+            width: 300%;
+            height: 100%;
+            transition: 0.8s ease-in-out;
+        }
+
+        .slides img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slider-buttons {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .dot {
+            height: 13px;
+            width: 13px;
+            margin: 0 5px;
+            background-color: #ffffff99;
+            display: inline-block;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .active-dot {
+            background-color: white;
+        }
+
+        /* ---------------------- INTRO SECTION ---------------------- */
+        .intro {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding: 50px;
+            flex-wrap: wrap;
+        }
+
+        .intro img {
+            width: 420px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px #00000022;
+        }
+
+        /* ---------------------- WHY HOMECARE ---------------------- */
+        .why-section {
+            padding: 50px 20px;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .why-card {
+            background: #e6f3ff;
+            padding: 25px;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px #00000015;
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .why-card:hover {
+            transform: translateY(-7px);
+        }
+
+        .why-card img {
+            width: 55px;
+            margin-bottom: 10px;
+        }
+
+        /* ---------------------- TESTIMONIALS ---------------------- */
+        .testimonials {
+            padding: 50px 20px;
+            background: #f4faff;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 4px 15px #00000020;
+            text-align: center;
+        }
+
+        .testimonial-card img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            object-fit: cover;
+        }
+
+
+        /* ---------------------- CTA FOOTER ---------------------- */
+        .cta-footer {
+            background: #0a72c4;
+            padding: 40px;
+            text-align: center;
+            color: white;
+            margin-top: 50px;
+        }
+
+        .cta-footer button {
+            background: white;
+            color: #0a72c4;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 6px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.4s;
+        }
+
+        .cta-footer button:hover {
+            background: #e6f3ff;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <!-- ---------------------- NAVIGATION ---------------------- -->
+    <nav>
+        <div class="logo">NeoExample</div>
+        <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+        <ul id="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Healthcare</a></li>
+            <li><a href="#">Global Services</a></li>
+            <li><a href="#">Training</a></li>
+            <li><a href="#">Our Team</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- ---------------------- HERO SLIDER ---------------------- -->
+    <div class="slider">
+        <div class="slides" id="slides">
+            <img src="https://images.pexels.com/photos/6129233/pexels-photo-6129233.jpeg" />
+            <img src="https://images.pexels.com/photos/305565/pexels-photo-305565.jpeg" />
+            <img src="https://images.pexels.com/photos/7551671/pexels-photo-7551671.jpeg" />
+        </div>
+
+        <div class="slider-buttons">
+            <span class="dot active-dot" onclick="currentSlide(0)"></span>
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+        </div>
+    </div>
+
+    <!-- ---------------------- INTRO SECTION ---------------------- -->
+    <section class="intro">
+        <div style="max-width:500px;">
+            <h2>Homecare Services</h2>
+            <p>
+                Homecare services are an essential component of the healthcare system today, providing crucial assistance to patients who require medical attention but prefer receiving it in the comfort of their homes.
+            </p>
+            <p>
+                We support individuals with chronic conditions, the elderly, and patients recovering post-surgery—reducing long hospital stays and enhancing quality of life.
+            </p>
+            <p>
+                Our trained professionals create personalized care plans tailored to each patient's unique medical and personal needs.
+            </p>
+        </div>
+
+        <img src="https://images.pexels.com/photos/6129688/pexels-photo-6129688.jpeg" />
+    </section>
+
+    <!-- ---------------------- WHY HOMECARE SECTION ---------------------- -->
+    <section class="why-section">
+        <h2>Why Homecare?</h2>
+
+        <div class="why-grid">
+
+            <div class="why-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/1828/1828640.png">
+                <h3>Convenience</h3>
+                <p>Receive healthcare services at home with complete comfort and privacy.</p>
+            </div>
+
+            <div class="why-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
+                <h3>Personalized Care</h3>
+                <p>Services tailored specifically to your medical and personal needs.</p>
+            </div>
+
+            <div class="why-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png">
+                <h3>Affordable</h3>
+                <p>A cost-effective alternative to expensive long-term hospitalization.</p>
+            </div>
+
+            <div class="why-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/1828/1828673.png">
+                <h3>Enhanced Independence</h3>
+                <p>Continue living in your familiar environment with dignity.</p>
+            </div>
+
+            <div class="why-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/709/709790.png">
+                <h3>Continuity of Care</h3>
+                <p>Ensures uninterrupted monitoring and reduces complications.</p>
+            </div>
+
+            <div class="why-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/1250/1250615.png">
+                <h3>Family Support</h3>
+                <p>Gives relief to family members handling caregiving duties.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ---------------------- TESTIMONIALS ---------------------- -->
+    <section class="testimonials">
+        <h2>What Our Clients Say</h2>
+
+        <div class="testimonial-grid">
+
+            <div class="testimonial-card">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg">
+                <p>"The caregiver was extremely kind and professional. Highly recommended!"</p>
+                <strong>- Priya Sharma</strong>
+            </div>
+
+            <div class="testimonial-card">
+                <img src="https://randomuser.me/api/portraits/men/52.jpg">
+                <p>"Their home nursing service helped my father recover faster. Excellent staff."</p>
+                <strong>- Manoj Kumar</strong>
+            </div>
+
+            <div class="testimonial-card">
+                <img src="https://randomuser.me/api/portraits/women/68.jpg">
+                <p>"Affordable and reliable service. We felt safe and supported throughout."</p>
+                <strong>- Radhika Menon</strong>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ---------------------- CTA FOOTER ---------------------- -->
+    <div class="cta-footer">
+        <h2>Need Homecare Support?</h2>
+        <p>We are available 24/7 to assist you.</p>
+        <button>Contact Us</button>
+    </div>
+
+    <!-- ---------------------- JAVASCRIPT ---------------------- -->
+    <script>
+
+        /* MOBILE NAVIGATION */
+        function toggleMenu() {
+            document.getElementById("nav-links").classList.toggle("show");
+        }
+
+        /* HERO SLIDER */
+        let index = 0;
+
+        function showSlide(i) {
+            const slides = document.getElementById("slides");
+            const dots = document.getElementsByClassName("dot");
+
+            index = i;
+
+            slides.style.transform = "translateX(" + (-i * 100) + "%)";
+
+            for (let d of dots) d.classList.remove("active-dot");
+            dots[i].classList.add("active-dot");
+        }
+
+        function currentSlide(i) {
+            showSlide(i);
+        }
+
+        setInterval(() => {
+            index = (index + 1) % 3;
+            showSlide(index);
+        }, 4000);
+
+    </script>
+
+</body>
+</html>

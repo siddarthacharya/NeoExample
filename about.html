@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About NeoExample</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: #f5f7fa;
+      color: #333;
+    }
+
+    h2, h3, h4 {
+      font-family: 'Poppins', sans-serif;
+      color: #07203a;
+      margin-bottom: 15px;
+    }
+
+    /* Container */
+    .container { max-width: 1200px; margin: auto; padding: 60px 20px; }
+
+    /* Section Titles */
+    .section-title { font-size: 36px; font-weight: 700; text-align:center; margin-bottom:10px; }
+    .section-subtitle { font-size:18px; font-weight:400; color:#555; text-align:center; margin-bottom:40px; }
+
+    /* Intro Section */
+    .about-intro {
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:40px;
+      margin-bottom:60px;
+    }
+    .about-text { flex:1 1 450px; font-size:16px; line-height:1.8; }
+    .about-text p { margin-bottom:16px; }
+    .about-image { flex:1 1 400px; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.1);}
+    .about-image img { width:100%; height:100%; object-fit:cover; transition: transform 0.5s; }
+    .about-image img:hover { transform: scale(1.05); }
+
+    /* Services Grid */
+    .services-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:25px;
+      margin-bottom:60px;
+    }
+    .service-card {
+      background:white;
+      padding:25px 20px;
+      border-radius:12px;
+      box-shadow:0 6px 20px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    }
+    .service-card:hover { transform: translateY(-6px); box-shadow:0 8px 28px rgba(0,0,0,0.12); }
+    .service-card h4 { display:flex; align-items:center; gap:12px; margin-bottom:12px; font-size:20px; font-weight:600; }
+    .service-card i { color:#0071c5; font-size:24px; }
+
+    /* Why Choose Us Grid 
+    .why-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:20px;
+    }
+    .why-card {
+      background: linear-gradient(135deg, #0071c5, #00bfff);
+      color:white;
+      padding:20px;
+      border-radius:12px;
+      font-weight:600;
+      text-align:center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow:0 6px 20px rgba(0,0,0,0.08);
+    }
+    .why-card:hover { transform: translateY(-6px); box-shadow:0 8px 28px rgba(0,0,0,0.12); }*/
+
+    /* Reveal Animation */
+    .reveal { opacity:0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.2,0.8,0.2,1); }
+    .reveal-left { transform: translateX(-50px); }
+    .reveal-right { transform: translateX(50px); }
+    .reveal.active { opacity:1; transform: translateX(0) translateY(0); }
+
+    /* Responsive */
+    @media(max-width:820px){
+      .about-intro { flex-direction:column; }
+    }
+  </style>
+</head>
+<body>
+<!-- TOP NAV -->
+<!-- TOP NAV -->
+<div class="topbar">
+  <nav class="nav">
+    <div class="brand">
+      <div class="logo">N</div>
+      NeoExample
+    </div>
+
+    <!-- HAMBURGER ICON -->
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <div class="navlinks" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="carrear.html">Career</a>
+     
+      <a class="cta" href="#contact">Contact</a>
+    </div>
+  </nav>
+</div>
+
+
+<style>
+  /* NAVBAR BASE */
+.topbar { width: 100%; background: #ffffffc9; backdrop-filter: blur(10px); position: fixed; top: 0; left: 0; z-index: 999; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+.nav { max-width: 1250px; margin: auto; padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; }
+.brand { font-size: 22px; font-weight: 600; display: flex; align-items: center; gap: 8px; color: #07203a; }
+.logo { width: 35px; height: 35px; border-radius: 50%; background: #0071c5; color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; }
+
+/* DESKTOP NAV */
+.navlinks { display: flex; align-items: center; gap: 25px; transition: all 0.3s ease; }
+.navlinks a { text-decoration: none; font-size: 16px; color: #07203a; transition: 0.3s; }
+.navlinks a:hover { color: #0071c5; }
+.navlinks .cta { padding: 8px 16px; background: #0071c5; color: #fff !important; border-radius: 5px; font-weight: 600; transition: 0.3s; }
+.navlinks .cta:hover { background: #005a9b; }
+
+/* HAMBURGER BUTTON */
+.hamburger { width: 30px; height: 25px; display: none; flex-direction: column; justify-content: space-between; cursor: pointer; z-index: 1000; }
+.hamburger span { width: 100%; height: 3px; background: #07203a; border-radius: 2px; transition: 0.4s; transform-origin: center; }
+
+/* MOBILE MENU */
+@media (max-width: 820px) {
+  .hamburger { display: flex; }
+
+  .navlinks {
+    position: fixed;
+    top: 0; right: -100%;
+    height: 100vh; width: 250px;
+    background: #fff; flex-direction: column;
+    padding: 80px 20px; gap: 20px;
+    box-shadow: -4px 0 16px rgba(0,0,0,0.1);
+    transition: right 0.3s ease;
+    z-index: 998;
+  }
+  .navlinks a { padding: 12px 0; font-size: 18px; width: 100%; border-bottom: 1px solid #f1f1f1; }
+  .navlinks a:last-child { border-bottom: none; }
+
+  /* Show menu */
+  .navlinks.active { right: 0; }
+
+  /* Hamburger transform into X */
+  .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+}
+
+</style>
+
+<script>
+const hamburger = document.getElementById("hamburger");
+const navLinks = document.getElementById("navLinks");
+
+// Toggle menu
+hamburger.addEventListener("click", () => {
+  navLinks.classList.toggle("active");
+  hamburger.classList.toggle("active");
+});
+
+// Close menu when a link is clicked (for mobile)
+document.querySelectorAll(".navlinks a").forEach(link => {
+  link.addEventListener("click", () => {
+    if(navLinks.classList.contains("active")){
+      navLinks.classList.remove("active");
+      hamburger.classList.remove("active");
+    }
+  });
+});
+
+</script>
+
+  <section id="about" class="about">
+    <div class="container">
+      <h2 class="section-title reveal">About NeoExample Medical & Healthcare</h2>
+      <p class="section-subtitle reveal">Providing specialized healthcare staffing and homecare solutions in Karnataka.</p>
+
+      <!-- Intro Section -->
+      <div class="about-intro">
+        <div class="about-text reveal reveal-left">
+          <p>NeoExample Medical & Healthcare is led by a team of experienced entrepreneurs in HR, Training, Healthcare, and Travel. We specialize in staffing services for hospitals, care centers, and home patients in Karnataka. Our services cater to the elderly, individuals with chronic conditions, and post-operative patients, ensuring personalized care and improving quality of life.</p>
+          <p>Our services empower patients to take an active role in their healthcare. Personalized care and involvement in treatment planning lead to better outcomes and higher satisfaction.</p>
+        </div>
+        <div class="about-image reveal reveal-right">
+          <img src="img5.jpg" alt="Healthcare team visiting patient">
+        </div>
+      </div>
+
+      <!-- Services Section -->
+      <h3 class="section-subtitle reveal">Our Services</h3>
+      <div class="services-grid">
+        <div class="service-card reveal"><h4><i class="fa-solid fa-hospital"></i> Nurses for Hospitals</h4><p>Professional nursing staff available for hospital requirements.</p></div>
+        <div class="service-card reveal"><h4><i class="fa-solid fa-person-walking-luggage"></i> Physiotherapists</h4><p>Physiotherapy support at hospital and homecare.</p></div>
+        <div class="service-card reveal"><h4><i class="fa-solid fa-bed-pulse"></i> Nurses for Homecare</h4><ul><li>ICU & Patient Care</li><li>Medicine Administration</li><li>Chronic & Critical Illness Care</li><li>Neonatal & Postnatal Care</li></ul></div>
+        <div class="service-card reveal"><h4><i class="fa-solid fa-hand-holding-medical"></i> Caregivers & Attenders</h4><ul><li>Elder Care</li><li>Mother & Baby Care</li><li>Post-operative Support</li><li>Assisted Living</li></ul></div>
+        <div class="service-card reveal"><h4><i class="fa-solid fa-van-shuttle"></i> Care-on-Wheels</h4><ul><li>IV Infusion & IM Injection</li><li>Vitals Checkup</li><li>Medicine Administration</li><li>Sample Collection & Wound Care</li><li>Physiotherapy & Nebulization</li></ul></div>
+      </div>
+
+      <!-- Why Choose Us Section -->
+      <!-- Why Choose Us Section with Working Images -->
+<section id="why-choose" style="padding:60px 20px; background:#f5f7fa;">
+  <div class="container">
+    <h2 class="section-title reveal">Why Choose NeoExample?</h2>
+    <p class="section-subtitle reveal">Reliable, professional, and patient-centered homecare services.</p>
+
+    <div class="why-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px;margin-top:40px;">
+
+      <!-- Card 1 -->
+      <div class="why-card reveal" style="position:relative; border-radius:15px; overflow:hidden; height:320px; cursor:pointer; box-shadow:0 8px 20px rgba(0,0,0,0.15); transition: transform 0.3s;">
+        <img src="a1.jpeg" alt="Qualified Team" style="width:100%; height:100%; object-fit:cover; filter:brightness(0.65); transition: transform 0.5s;">
+        <div style="position:absolute; bottom:20px; left:20px; color:white;">
+          <h4 style="margin:0; font-family:'Poppins',sans-serif; font-size:22px;">Qualified Team</h4>
+          <p style="margin:5px 0 0; font-size:14px;">Expert professionals with homecare experience.</p>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="why-card reveal" style="position:relative; border-radius:15px; overflow:hidden; height:320px; cursor:pointer; box-shadow:0 8px 20px rgba(0,0,0,0.15); transition: transform 0.3s;">
+        <img src="a2.jpeg" alt="Affordable Care" style="width:100%; height:100%; object-fit:cover; filter:brightness(0.65); transition: transform 0.5s;">
+        <div style="position:absolute; bottom:20px; left:20px; color:white;">
+          <h4 style="margin:0; font-family:'Poppins',sans-serif; font-size:22px;">Affordable Care</h4>
+          <p style="margin:5px 0 0; font-size:14px;">Cost-effective homecare plans.</p>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="why-card reveal" style="position:relative; border-radius:15px; overflow:hidden; height:320px; cursor:pointer; box-shadow:0 8px 20px rgba(0,0,0,0.15); transition: transform 0.3s;">
+        <img src="a3.jpeg" alt="Single Window" style="width:100%; height:100%; object-fit:cover; filter:brightness(0.65); transition: transform 0.5s;">
+        <div style="position:absolute; bottom:20px; left:20px; color:white;">
+          <h4 style="margin:0; font-family:'Poppins',sans-serif; font-size:22px;">Single Window Solution</h4>
+          <p style="margin:5px 0 0; font-size:14px;">All hospital & homecare needs in one place.</p>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="why-card reveal" style="position:relative; border-radius:15px; overflow:hidden; height:320px; cursor:pointer; box-shadow:0 8px 20px rgba(0,0,0,0.15); transition: transform 0.3s;">
+        <img src="a4.jpeg" alt="Training & Talent" style="width:100%; height:100%; object-fit:cover; filter:brightness(0.65); transition: transform 0.5s;">
+        <div style="position:absolute; bottom:20px; left:20px; color:white;">
+          <h4 style="margin:0; font-family:'Poppins',sans-serif; font-size:22px;">Talent & Training</h4>
+          <p style="margin:5px 0 0; font-size:14px;">Skilled professionals & ongoing training.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  // Fade-in on scroll
+  function revealOnScroll() {
+    const reveals = document.querySelectorAll(".reveal");
+    for(let i=0;i<reveals.length;i++){
+      const windowHeight = window.innerHeight;
+      const revealTop = reveals[i].getBoundingClientRect().top;
+      const revealPoint = 150;
+      if(revealTop < windowHeight - revealPoint){
+        reveals[i].classList.add("active");
+        reveals[i].style.opacity = 1;
+        reveals[i].style.transform = "translateY(0)";
+      } else {
+        reveals[i].style.opacity = 0.2;
+        reveals[i].style.transform = "translateY(20px)";
+      }
+    }
+  }
+  window.addEventListener("scroll", revealOnScroll);
+  window.addEventListener("load", revealOnScroll);
+</script>
+
+<style>
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+  }
+
+  .why-card:hover img {
+    transform: scale(1.05);
+  }
+</style>
+
+
+    </div>
+  </section>
+
+  <script>
+    // Scroll reveal animation
+    function revealOnScroll() {
+      const reveals = document.querySelectorAll(".reveal");
+      for(let i=0;i<reveals.length;i++){
+        const windowHeight = window.innerHeight;
+        const revealTop = reveals[i].getBoundingClientRect().top;
+        const revealPoint = 150;
+
+        if(revealTop < windowHeight - revealPoint){
+          reveals[i].classList.add("active");
+        }
+      }
+    }
+    window.addEventListener("scroll", revealOnScroll);
+    window.addEventListener("load", revealOnScroll);
+  </script>
+ <!-- CONTACT / FOOTER -->
+  <!-- CONTACT / FOOTER -->
+<footer id="contact" style="background:#f8f9fb;padding:60px 20px;color:#07203a;">
+  <div style="max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between;">
+
+    <!-- Contact Form Section -->
+    <div style="flex:1;min-width:300px;">
+      <h3 style="margin-top:0;margin-bottom:16px;color:#07203a;text-align:left;font-size:28px;">Contact Us</h3>
+      <p style="margin-bottom:24px;color:#555;">Fill out the quick form below or use the contact info to speak with our care team. We respond promptly to calls and inquiries.</p>
+
+      <form id="contactForm" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;">
+        <input type="text" name="name" placeholder="Full name" required style="padding:12px;border-radius:8px;border:1px solid #ccc;">
+        <input type="email" name="email" placeholder="Email" required style="padding:12px;border-radius:8px;border:1px solid #ccc;">
+        <input type="tel" name="phone" placeholder="Phone" required style="padding:12px;border-radius:8px;border:1px solid #ccc;">
+        <select name="service" required style="padding:12px;border-radius:8px;border:1px solid #ccc;">
+          <option value="">Select service</option>
+          <option>Caregiver</option>
+          <option>Nurse</option>
+          <option>Physiotherapist</option>
+          <option>Assessment</option>
+        </select>
+        <textarea name="remarks" placeholder="Remarks" rows="3" style="grid-column:1 / -1;padding:12px;border-radius:8px;border:1px solid #ccc;"></textarea>
+        <button type="submit" style="grid-column:1 / -1;padding:14px;border-radius:8px;border:none;background:linear-gradient(90deg,#007bff,#0056b3);color:white;font-weight:600;cursor:pointer;transition:0.3s;">Send Request</button>
+      </form>
+    </div>
+
+    <!-- Contact Info & Map Section -->
+    <div style="flex:1;min-width:300px;display:flex;flex-direction:column;gap:24px;">
+      <div style="display:grid;gap:12px;">
+        <div><strong>Phone:</strong> <span style="color:#555;">+91 98765 43210</span></div>
+        <div><strong>Email:</strong> <span style="color:#555;">care@neoexample.org</span></div>
+        <div><strong>Office:</strong> <span style="color:#555;">NeoExample Healthcare, 12 Medical Plaza, City</span></div>
+        <div>
+          <strong>Follow Us:</strong>
+          <div style="display:flex;gap:12px;margin-top:6px;">
+            <a href="#" style="text-decoration:none;color:#007bff;transition:0.3s;">Facebook</a>
+            <a href="#" style="text-decoration:none;color:#007bff;transition:0.3s;">Twitter</a>
+            <a href="#" style="text-decoration:none;color:#007bff;transition:0.3s;">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3602.217458960737!2d81.98823240882174!3d25.464420674384833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1765380812268!5m2!1sen!2sin" width="300" height="160" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>  
+    </div>
+
+    </div>
+
+  </div>
+
+  <!-- Footer Bottom -->
+  <div style="text-align:center;margin-top:40px;color:#555;font-size:14px;">
+    &copy; 2025 NeoExample Healthcare. All rights reserved.
+  </div>
+</footer>
+
+</body>
+</html>

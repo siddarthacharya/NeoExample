@@ -1,0 +1,907 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>NeoExample — Homecare Services</title>
+
+  <!-- Google Fonts (single external dependency; fonts only) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --blue-50: #f2f9ff;
+      --blue-100:#e6f3ff;
+      --blue-200:#cfe9ff;
+      --primary:#2b9bf0;
+      --primary-600:#157bd6;
+      --muted:#6b7280;
+      --card-shadow: 0 8px 30px rgba(37,78,116,0.08);
+      --glass: rgba(255,255,255,0.7);
+      --radius: 14px;
+      font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    html,body{
+      margin:0;
+      padding:0;
+      background: linear-gradient(180deg,var(--blue-50),white 40%);
+      color:#0f172a;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      scroll-behavior:smooth;
+    }
+/* NAVBAR BASE */
+.topbar {
+  width: 100%;
+  background: #ffffffc9;
+  backdrop-filter: blur(10px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+
+.nav {
+  max-width: 1250px;
+  margin: auto;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  font-size: 22px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #0071c5;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+/* DESKTOP NAV */
+.navlinks {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.navlinks a {
+  text-decoration: none;
+  font-size: 16px;
+  color: #222;
+  transition: 0.3s;
+}
+
+.navlinks a:hover {
+  color: #0071c5;
+}
+
+.navlinks .cta {
+  padding: 8px 16px;
+  background: #0071c5;
+  color: #fff !important;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.navlinks .cta:hover {
+  background: #005a9b;
+}
+
+/* HAMBURGER BUTTON */
+.hamburger {
+  width: 30px;
+  height: 25px;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.hamburger span {
+  width: 100%;
+  height: 3px;
+  background: #222;
+  transition: 0.3s;
+  border-radius: 2px;
+}
+
+/* MOBILE MENU */
+@media (max-width: 820px) {
+  
+  /* Hide normal menu */
+  .navlinks {
+    position: absolute;
+    top: 65px;
+    right: 0;
+    width: 230px;
+    background: #fff;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    flex-direction: column;
+    gap: 0;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-15px);
+    padding: 15px 0;
+    transition: 0.3s ease;
+  }
+
+  .navlinks a {
+    padding: 12px 20px;
+    width: 100%;
+    border-bottom: 1px solid #f1f1f1;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  /* Show menu when active */
+  .navlinks.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+}
+
+
+    /* ===== HERO / SLIDER ===== */
+    .hero {
+      max-width:1200px;margin:18px auto 28px;padding:0 20px;
+      display:grid;grid-template-columns:1fr;gap:20px;
+    }
+    .slider {
+      position:relative;border-radius:18px;overflow:hidden;box-shadow:var(--card-shadow);
+      min-height:420px;background:linear-gradient(180deg,var(--blue-200),white);
+    }
+    .slide {
+      position:absolute;inset:0;opacity:0;transform:translateY(18px);
+      transition:all 700ms cubic-bezier(.2,.9,.25,1);
+      display:flex;align-items:center;justify-content:center;padding:44px;
+      color:white;
+      background-size:cover;background-position:center;
+    }
+    .slide.show{ opacity:1; transform:translateY(0); z-index:2; }
+    .slide::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(6,24,64,0.24), rgba(6,24,64,0.12)); mix-blend-mode:multiply; }
+
+    .slide-content {
+      position:relative; z-index:3; display:flex;flex-direction:column;gap:12px;max-width:760px;
+      color:white;
+    }
+    .kicker { background:rgba(255,255,255,0.12); padding:8px 12px;border-radius:999px;font-weight:700;font-size:0.85rem;display:inline-block; }
+    .hero h1{ font-size:2.1rem; margin:0; line-height:1.05; font-weight:800; }
+    .hero p{ margin:0; color:rgba(255,255,255,0.95); font-weight:500; font-size:1rem; opacity:0.95; }
+    .hero .actions { display:flex; gap:12px; margin-top:12px; }
+    .btn-ghost{ background: rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.14); color:white;padding:10px 14px;border-radius:10px;font-weight:700; text-decoration:none;}
+    .btn-primary{ background:linear-gradient(90deg,#fff 10%,rgba(255,255,255,0.92)); color:var(--primary-600); padding:10px 16px;border-radius:12px;font-weight:800; text-decoration:none; box-shadow:0 8px 18px rgba(0,0,0,0.06);}
+
+    /* slider controls */
+    .slider-controls {
+      position:absolute; bottom:18px; left:20px; right:20px; display:flex;align-items:center;justify-content:space-between; z-index:4;
+    }
+    .dots { display:flex; gap:8px; align-items:center; }
+    .dot { width:10px;height:10px;border-radius:999px;background:rgba(255,255,255,0.45); cursor:pointer; border:2px solid rgba(255,255,255,0.12); }
+    .dot.active { background:white; transform:scale(1.15); box-shadow:0 6px 18px rgba(0,0,0,0.12); }
+
+    .arrows { display:flex; gap:8px; }
+    .arrow {
+      background:rgba(255,255,255,0.14); padding:10px;border-radius:10px;display:inline-grid;place-items:center;cursor:pointer;
+      backdrop-filter: blur(6px);
+    }
+    .arrow svg { width:18px;height:18px;opacity:0.95; }
+
+    /* ===== MAIN CONTENT SECTIONS ===== */
+    main { max-width:1150px;margin:0 auto;padding:20px; display:grid; gap:28px; }
+
+    .intro {
+      display:grid; grid-template-columns: 1fr 420px; gap:26px; align-items:center;
+    }
+    .intro .text h2 { margin:0 0 12px;font-size:1.45rem; color: #07203a;}
+    .intro .text p { color: #13324a; line-height:1.6; margin:0 0 10px; font-weight:500; }
+    .intro .card {
+      border-radius:16px;background:linear-gradient(180deg,white, var(--blue-50)); padding:18px; box-shadow:var(--card-shadow);
+    }
+    .intro .image { border-radius:12px; overflow:hidden; box-shadow:0 10px 28px rgba(13,63,102,0.06); }
+
+    /* WHY HOMECARE */
+    .features { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .feature {
+      background:white;border-radius:12px;padding:18px;box-shadow:var(--card-shadow);display:flex;gap:12px;align-items:flex-start;
+      transition: transform .28s ease, box-shadow .28s ease;
+    }
+    .feature:hover{ transform: translateY(-8px); box-shadow: 0 18px 38px rgba(17,56,109,0.09); }
+    .feature svg{ width:46px;height:46px;flex-shrink:0; margin-top:2px; }
+    .feature h3{ margin:0;font-size:1rem; color:#0b2540;font-weight:700; }
+    .feature p { margin:4px 0 0; color:var(--muted); font-size:0.94rem; line-height:1.45; }
+
+    /* HIGHLIGHTS */
+    .highlights { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+    .hl { padding:16px;border-radius:12px;background:linear-gradient(180deg,#ffffff, var(--blue-50)); box-shadow:var(--card-shadow); text-align:center; }
+    .hl h4{ margin:6px 0 0; font-size:1rem; color:#073042; }
+    .hl p{ margin:6px 0 0; color:var(--muted); font-size:0.9rem; }
+
+     /* ---------- TESTIMONIALS ---------- */
+        .testimonials-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .testimonial {
+            width: 250px;
+            height: 250px;
+            background: white;
+            border-radius: 50%;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 0 25px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: 0.4s;
+        }
+
+        .testimonial:hover {
+            transform: translateY(-10px);
+        }
+
+        .testimonial img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+        }
+
+        .testimonial p {
+            font-size: 0.9rem;
+        }
+
+        .testimonial h4 {
+            margin-top: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+
+    /* CTA STRIP */
+    .cta-strip{ border-radius:12px;padding:18px;background:linear-gradient(90deg, rgba(43,155,240,0.1), rgba(124,203,255,0.06)); display:flex; gap:20px; align-items:center; justify-content:space-between; box-shadow:var(--card-shadow); }
+    .cta-strip h3 { margin:0; font-size:1.05rem; color:#073042; }
+    .cta-strip a{ text-decoration:none; padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,var(--primary),var(--primary-600)); color:white;font-weight:800; box-shadow:0 10px 24px rgba(21,123,214,0.16); }
+
+    /* FOOTER */
+    footer { margin-top:12px;padding:28px 20px;background:linear-gradient(180deg, white, var(--blue-50)); border-top:1px solid rgba(15,23,42,0.04); }
+    .foot-wrapper { max-width:1150px;margin:0 auto;display:flex;gap:20px;align-items:flex-start; justify-content:space-between; }
+    .contact-list { display:flex;flex-direction:column; gap:8px; color:var(--muted); }
+    .small { font-size:0.9rem;color:var(--muted); }
+
+    /* RESPONSIVE */
+    @media (max-width:980px){
+      .features { grid-template-columns:repeat(2,1fr); }
+      .highlights { grid-template-columns:repeat(2,1fr); }
+      .intro { grid-template-columns:1fr; }
+      .testimonials { grid-template-columns:1fr; }
+      .foot-wrapper { flex-direction:column; gap:18px; }
+    }
+    @media (max-width:640px){
+      /*.navlinks { display:none; }*/
+      .hero h1{ font-size:1.6rem; }
+      .slider { min-height:360px; }
+      .features { grid-template-columns:1fr; }
+      .highlights { grid-template-columns:1fr; }
+    }
+
+    /* ===== Simple reveal animations (wire-free AOS) ===== */
+    .reveal { opacity:0; transform: translateY(12px); transition: all 650ms cubic-bezier(.2,.9,.25,1); }
+    .reveal.show { opacity:1; transform:translateY(0); }
+  </style>
+</head>
+<body>
+
+
+ <!-- TOP NAV -->
+<!-- TOP NAV -->
+<div class="topbar">
+  <nav class="nav">
+    <div class="brand">
+      <div class="logo">N</div>
+      NeoExample
+    </div>
+
+    <!-- HAMBURGER ICON -->
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <div class="navlinks" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#services">Services</a>
+      <a href="#why">Why Homecare</a>
+      <a href="#highlights">Highlights</a>
+      <a href="#testimonials">Testimonials</a>
+      <a class="cta" href="#contact">Contact</a>
+    </div>
+  </nav>
+</div>
+
+<script>
+  function toggleMenu() {
+    document.getElementById("navLinks").classList.toggle("active");
+  }
+</script>
+
+
+
+<br>
+<br>
+<br>
+  <!-- HERO / SLIDER -->
+  <section id="home" class="hero">
+    <div class="slider" aria-roledescription="carousel">
+
+      <!-- Slide 1 -->
+      <div class="slide show" style="background-image:url('https://images.unsplash.com/photo-1584466977777-1a7b5d275f9b?q=80&w=1800&auto=format&fit=crop&ixlib=rb-4.0.3&s=13a7a59da659ef8b1b9b6b0c2a6a4b52');">
+        <div class="slide-content">
+          <span class="kicker">At-Home Care • Compassionate • Certified</span>
+          <h1>Exceptional Homecare — Healing in the comfort of home</h1>
+          <p>Personalised care plans, trained professionals, and compassionate support — enabling independence and better health outcomes without hospital stays.</p>
+          <div class="actions">
+            <a href="#services" class="btn-ghost">Explore Services</a>
+            <a href="#contact" class="btn-primary">Request Care</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1580281657521-3b9f5b1f9b3f?q=80&w=1800&auto=format&fit=crop&ixlib=rb-4.0.3&s=9f4333f2d0e3bdcb6b1d9f3e4c2b5f07');">
+        <div class="slide-content">
+          <span class="kicker">24/7 Support</span>
+          <h1>Care when you need it — Nights, weekends, anytime</h1>
+          <p>Dedicated caregivers and certified nurses available round-the-clock for post-operative care, chronic condition support and daily assistance.</p>
+          <div class="actions">
+            <a href="#why" class="btn-ghost">Why Homecare?</a>
+            <a href="#contact" class="btn-primary">Speak To Us</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1597764693493-1df1711f9d34?q=80&w=1800&auto=format&fit=crop&ixlib=rb-4.0.3&s=4a0d1b7f9a7db7203fbc7f3b9d5e6b2a');">
+        <div class="slide-content">
+          <span class="kicker">Trusted by Families</span>
+          <h1>Comfort, dignity, and continuity — Our care philosophy</h1>
+          <p>We partner with families to create holistic, individualized care plans that respect patients’ routines and preferences.</p>
+          <div class="actions">
+            <a href="#highlights" class="btn-ghost">Our Strengths</a>
+            <a href="#contact" class="btn-primary">Book Assessment</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 4 -->
+      <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1579154204601-6a1d0b10f8f4?q=80&w=1800&auto=format&fit=crop&ixlib=rb-4.0.3&s=0de2ae3ca713f0f8f1f6f2c3b7d9a8e9');">
+        <div class="slide-content">
+          <span class="kicker">Affordable Care</span>
+          <h1>Affordable alternatives to prolonged hospital stays</h1>
+          <p>High-quality services designed to be cost-effective for long-term and chronic care needs.</p>
+          <div class="actions">
+            <a href="#services" class="btn-ghost">View Services</a>
+            <a href="#contact" class="btn-primary">Contact Us</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- slider controls -->
+      <div class="slider-controls">
+        <div class="dots" id="dots"></div>
+        <div class="arrows">
+          <div class="arrow" id="prev" title="Previous">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M15 18l-6-6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="arrow" id="next" title="Next">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 6l6 6-6 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <style>
+  .intro .text,
+  .intro .image {
+    opacity: 0;
+    transform: translateX(-50px); /* Start shifted left */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  .intro .visible {
+    opacity: 1;
+    transform: translateX(0); /* Move to original position */
+  }
+
+  /* Optional: stagger text and image */
+  .intro .text.visible { transition-delay: 0.2s; }
+  .intro .image.visible { transition-delay: 0.4s; }
+</style>
+
+
+    <!-- INTRODUCTION -->
+    <section id="services" class="intro reveal">
+      <div class="text">
+        <h2>Homecare services — personalized, professional, and patient-centered</h2>
+        <div class="card">
+          <p><strong>Homecare services are an essential component of modern healthcare.</strong> We provide compassionate, clinically-informed assistance to individuals who prefer recovery and care in the comfort of their own homes. Our approach reduces unnecessary hospital stays, improves comfort, and supports long-term health.</p>
+
+          <p>We specialize in care for people with chronic conditions, the elderly, and those needing post-operative support. Every patient receives an individualized care plan developed by trained professionals in consultation with family and medical teams.</p>
+
+          <p>Our team focuses on restoring independence, preventing complications, and enabling continuity of care — all delivered with dignity and respect.</p>
+        </div>
+      </div>
+
+      <div class="image">
+        <img src="https://images.unsplash.com/photo-1582719478250-e5ee6d55f2cf?q=80&w=900&auto=format&fit=crop&ixlib=rb-4.0.3&s=5a0168b4b5f8f7b9f4f3b3f0c6d9f8a7" alt="Homecare nurse visiting patient" style="width:100%;display:block;max-height:420px;object-fit:cover;">
+      </div>
+    </section>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const introItems = document.querySelectorAll(".intro .text, .intro .image");
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target); // Animate only once
+        }
+      });
+    }, { threshold: 0.2 }); // Trigger when 20% visible
+
+    introItems.forEach(item => observer.observe(item));
+  });
+</script>
+
+
+    <style>
+  .feature {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .feature.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+
+
+    <!-- WHY HOMECARE -->
+    <section id="why" class="reveal">
+      <h2 style="margin:0 0 14px;color:#07203a; text-align:center;">
+  Why Homecare?
+</h2>
+
+      <div class="features">
+        <div class="feature">
+          <!-- House Icon -->
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden><path d="M3 11.5L12 4l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-8.5z" stroke="#1e3a8a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div>
+            <h3>Convenience</h3>
+            <p>Receive healthcare in the privacy and comfort of your own home — appointments, therapies, and follow-ups designed around your life.</p>
+          </div>
+        </div>
+
+        <div class="feature">
+          <!-- Heart + Cross -->
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden><path d="M20.8 8.6c0 6.2-8 9.8-8.8 10.2-.8-.4-8.8-4-8.8-10.2C3.2 7.9 4.6 6.2 6.4 6.2c1.5 0 2.4.9 3.2 1.8.7.8 1.6 1.7 3.2 1.7 1.8 0 3.2-1.7 3.2-1.7 1.8 0 3.2 1.7 3.2 2.6z" stroke="#0b74d1" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div>
+            <h3>Personalized Care</h3>
+            <p>Care plans tailored to individual needs — clinical goals, daily activities, and emotional support all integrated into one plan.</p>
+          </div>
+        </div>
+
+        <div class="feature">
+          <!-- Wallet / Affordable -->
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden><path d="M3 8h14v8H3zM21 8v10a1 1 0 0 1-1 1H9" stroke="#0b74d1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div>
+            <h3>Affordable</h3>
+            <p>Cost-effective care options compared to long hospital stays — flexible packages for long-term and post-operative needs.</p>
+          </div>
+        </div>
+
+        <div class="feature">
+          <!-- Independence Icon -->
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden><path d="M12 2v6l4 4-4 4v6" stroke="#0b74d1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div>
+            <h3>Enhanced Independence</h3>
+            <p>Support that enables patients to maintain routines and live independently in a familiar environment.</p>
+          </div>
+        </div>
+
+        <div class="feature">
+          <!-- Continuity shield -->
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden><path d="M12 2l7 4v6c0 5-4 9-7 10-3-1-7-5-7-10V6l7-4z" stroke="#0b74d1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div>
+            <h3>Continuity of Care</h3>
+            <p>Consistent monitoring and follow-up reduce risk of complications and prevent avoidable readmissions.</p>
+          </div>
+        </div>
+
+        <div class="feature">
+          <!-- Family support -->
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden><path d="M12 12a5 5 0 100-10 5 5 0 000 10zM21 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" stroke="#0b74d1" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div>
+            <h3>Support for Family</h3>
+            <p>Relief and guidance for family caregivers — training, respite support, and counselling when needed.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const features = document.querySelectorAll(".feature");
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target); // Animate once
+        }
+      });
+    }, { threshold: 0.2 }); // 20% of the element visible
+
+    features.forEach(feature => {
+      observer.observe(feature);
+    });
+  });
+</script>
+
+    <!-- HIGHLIGHTS -->
+    <section id="highlights" class="reveal">
+      <h2 style="margin-bottom:12px;color:#07203a;  text-align:center;">Our Key Strengths</h2>
+      <div class="highlights">
+        <div class="hl">
+          <strong>24/7 Availability</strong>
+          <p class="small">Continuous support for urgent and routine care needs.</p>
+        </div>
+        <div class="hl">
+          <strong>Certified Nurses & Caregivers</strong>
+          <p class="small">Trained professionals with background checks and ongoing training.</p>
+        </div>
+        <div class="hl">
+          <strong>Personalized Care Plans</strong>
+          <p class="small">Customised goals and schedules tailored to each patient.</p>
+        </div>
+        <div class="hl">
+          <strong>Trusted by Families</strong>
+          <p class="small">High satisfaction and long-term relationships with our clients.</p>
+        </div>
+      </div>
+    </section>
+
+     <!-- TESTIMONIALS -->
+    <section class="reveal">
+        <h2 class="title" style="margin:0 0 14px;color:#07203a; text-align:center;">What Our Clients Say</h2>
+ 
+        <div class="testimonials-container">
+            
+            <div class="testimonial">
+                <img src="https://randomuser.me/api/portraits/women/65.jpg">
+                <p>“The best homecare service! My mother received excellent support.”</p>
+                <h4>Anita Rao</h4>
+            </div>
+
+            <div class="testimonial">
+                <img src="https://randomuser.me/api/portraits/men/41.jpg">
+                <p>“Professional and caring staff. Highly recommended!”</p>
+                <h4>Sunil Kumar</h4>
+            </div>
+
+            <div class="testimonial">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg">
+                <p>“Their personalized care plan really helped my recovery.”</p>
+                <h4>Maria D’souza</h4>
+            </div>
+
+        </div>
+   
+
+    <!-- CTA STRIP -->
+   <style>
+  .cta-strip {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 20px;
+    margin-top: 20px;
+    border-radius: 12px;
+    background: #fff; /* white background */
+    color: #07203a; /* dark blue text */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .cta-strip:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  }
+
+  .cta-strip h3 {
+    margin: 0 0 8px;
+    font-size: 24px;
+    font-weight: 600;
+    color: #0b74d1; /* dark blue headline */
+  }
+
+  .cta-strip .small {
+    margin: 0;
+    font-size: 14px;
+    opacity: 0.9;
+    color: #07203a; /* dark blue text */
+  }
+
+  .cta-strip a {
+    text-decoration: none;
+    background: #00c6ff; /* light blue button */
+    color: #fff; /* white text on button */
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .cta-strip a:hover {
+    background: #009fcc; /* darker blue on hover */
+    color: #fff;
+  }
+
+  /* Scroll animation */
+  .cta-strip.reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+  .cta-strip.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    .cta-strip {
+      flex-direction: column;
+      text-align: center;
+      gap: 16px;
+    }
+    .cta-strip a {
+      width: 100%;
+      max-width: 250px;
+    }
+  }
+</style>
+
+<section class="cta-strip reveal">
+  <div>
+    <h3>Need care at home? We’re here to support you.</h3>
+    <p class="small">Personalized care plans, verified professionals, and compassionate service.</p>
+  </div>
+  <div>
+    <a href="#contact">Get In Touch</a>
+  </div>
+</section>
+
+<script>
+  // Scroll animation for CTA strip
+  document.addEventListener("DOMContentLoaded", () => {
+    const cta = document.querySelector(".cta-strip.reveal");
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    if (cta) observer.observe(cta);
+  });
+</script>
+
+
+  </main>
+
+  <!-- CONTACT / FOOTER -->
+  <!-- CONTACT / FOOTER -->
+<footer id="contact" style="background:#f8f9fb;padding:60px 20px;color:#07203a;">
+  <div style="max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between;">
+
+    <!-- Contact Form Section -->
+    <div style="flex:1;min-width:300px;">
+      <h3 style="margin-top:0;margin-bottom:16px;color:#07203a;text-align:left;font-size:28px;">Contact Us</h3>
+      <p style="margin-bottom:24px;color:#555;">Fill out the quick form below or use the contact info to speak with our care team. We respond promptly to calls and inquiries.</p>
+
+      <form id="contactForm" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;">
+        <input type="text" name="name" placeholder="Full name" required style="padding:12px;border-radius:8px;border:1px solid #ccc;">
+        <input type="email" name="email" placeholder="Email" required style="padding:12px;border-radius:8px;border:1px solid #ccc;">
+        <input type="tel" name="phone" placeholder="Phone" required style="padding:12px;border-radius:8px;border:1px solid #ccc;">
+        <select name="service" required style="padding:12px;border-radius:8px;border:1px solid #ccc;">
+          <option value="">Select service</option>
+          <option>Caregiver</option>
+          <option>Nurse</option>
+          <option>Physiotherapist</option>
+          <option>Assessment</option>
+        </select>
+        <textarea name="remarks" placeholder="Remarks" rows="3" style="grid-column:1 / -1;padding:12px;border-radius:8px;border:1px solid #ccc;"></textarea>
+        <button type="submit" style="grid-column:1 / -1;padding:14px;border-radius:8px;border:none;background:linear-gradient(90deg,#007bff,#0056b3);color:white;font-weight:600;cursor:pointer;transition:0.3s;">Send Request</button>
+      </form>
+    </div>
+
+    <!-- Contact Info & Map Section -->
+    <div style="flex:1;min-width:300px;display:flex;flex-direction:column;gap:24px;">
+      <div style="display:grid;gap:12px;">
+        <div><strong>Phone:</strong> <span style="color:#555;">+91 98765 43210</span></div>
+        <div><strong>Email:</strong> <span style="color:#555;">care@neoexample.org</span></div>
+        <div><strong>Office:</strong> <span style="color:#555;">NeoExample Healthcare, 12 Medical Plaza, City</span></div>
+        <div>
+          <strong>Follow Us:</strong>
+          <div style="display:flex;gap:12px;margin-top:6px;">
+            <a href="#" style="text-decoration:none;color:#007bff;transition:0.3s;">Facebook</a>
+            <a href="#" style="text-decoration:none;color:#007bff;transition:0.3s;">Twitter</a>
+            <a href="#" style="text-decoration:none;color:#007bff;transition:0.3s;">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <img src="https://maps.googleapis.com/maps/api/staticmap?center=12.9716,77.5946&zoom=13&size=320x160&maptype=roadmap&markers=color:blue%7Clabel:N%7C12.9716,77.5946" alt="map placeholder" style="width:100%;border-radius:10px;object-fit:cover;">
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer Bottom -->
+  <div style="text-align:center;margin-top:40px;color:#555;font-size:14px;">
+    &copy; 2025 NeoExample Healthcare. All rights reserved.
+  </div>
+</footer>
+
+
+  <script>
+    /*********** SLIDER LOGIC ***********/
+    (function(){
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const dotsContainer = document.getElementById('dots');
+      const nextBtn = document.getElementById('next');
+      const prevBtn = document.getElementById('prev');
+      let active = 0;
+      let autoTimer = null;
+      const AUTO_DELAY = 5000;
+
+      function buildDots(){
+        slides.forEach((s, i) => {
+          const d = document.createElement('div');
+          d.className = 'dot' + (i===0? ' active':'');
+          d.addEventListener('click', ()=> goTo(i));
+          dotsContainer.appendChild(d);
+        });
+      }
+
+      function updateDots(){
+        const dots = Array.from(dotsContainer.children);
+        dots.forEach((d,i)=> d.classList.toggle('active', i===active));
+      }
+
+      function show(index){
+        slides.forEach((s,i) => {
+          s.classList.toggle('show', i===index);
+        });
+      }
+
+      function goTo(i){
+        active = (i + slides.length) % slides.length;
+        show(active);
+        updateDots();
+        resetAuto();
+      }
+
+      function next(){ goTo(active+1); }
+      function prev(){ goTo(active-1); }
+
+      function autoStart(){
+        autoTimer = setInterval(next, AUTO_DELAY);
+      }
+      function resetAuto(){
+        if(autoTimer) clearInterval(autoTimer);
+        autoStart();
+      }
+
+      // init
+      buildDots();
+      nextBtn.addEventListener('click', next);
+      prevBtn.addEventListener('click', prev);
+      autoStart();
+
+      // pause on hover
+      const slider = document.querySelector('.slider');
+      slider.addEventListener('mouseenter', ()=> { if(autoTimer) clearInterval(autoTimer); });
+      slider.addEventListener('mouseleave', ()=> resetAuto());
+
+      // keyboard nav
+      document.addEventListener('keydown', (e)=>{
+        if(e.key === 'ArrowRight') next();
+        if(e.key === 'ArrowLeft') prev();
+      });
+    })();
+
+    /*********** REVEAL ON SCROLL ***********/
+    (function(){
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(ent => {
+          if(ent.isIntersecting) ent.target.classList.add('show');
+        });
+      }, {root:null, rootMargin:'0px 0px -80px 0px', threshold:0.12});
+
+      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    })();
+
+    /*********** SIMPLE FORM VALIDATION & SUBMIT FEEDBACK ***********/
+    (function(){
+      const form = document.getElementById('contactForm');
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        const name = form.name.value.trim();
+        const email = form.email.value.trim();
+        const phone = form.phone.value.trim();
+
+        if(name.length < 2){ alert('Please enter a valid name.'); form.name.focus(); return; }
+        if(!/^\S+@\S+\.\S+$/.test(email)){ alert('Please enter a valid email.'); form.email.focus(); return; }
+        if(!/^\+?\d{7,15}$/.test(phone)){ alert('Please enter a valid phone number (digits only).'); form.phone.focus(); return; }
+
+        // Simulate success
+        form.querySelector('button').disabled = true;
+        form.querySelector('button').innerText = 'Sending...';
+
+        setTimeout(()=> {
+          alert('Thanks! Your request has been received. We will contact you shortly.');
+          form.reset();
+          form.querySelector('button').disabled = false;
+          form.querySelector('button').innerText = 'Send Request';
+        }, 900);
+      });
+    })();
+
+    /*********** SMOOTH HIGHLIGHT FOR ANCHOR LINKS (small extra polish) ***********/
+    (function(){
+      document.querySelectorAll('a[href^="#"]').forEach(a=>{
+        a.addEventListener('click', (e)=>{
+          const id = a.getAttribute('href').slice(1);
+          const el = document.getElementById(id);
+          if(el){
+            e.preventDefault();
+            el.scrollIntoView({behavior:'smooth', block:'start'});
+          }
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>
